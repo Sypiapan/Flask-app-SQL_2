@@ -1,0 +1,107 @@
+
+{% extends "base.html" %}
+
+
+
+{% block historia %}
+
+<label  class="form-label mt-3">Cała historia operacji w systemie</label>
+{% if context.history %}
+
+
+      <table class="table">
+  <thead>
+    <tr>
+<th scope="col">Id</th>
+      <th scope="col">Akcja</th>
+      <th scope="col">Kwota</th>
+        <th scope="col">Towar</th>
+        <th scope="col">Ilość</th>
+        <th scope="col">Cena</th>
+    </tr>
+  </thead>
+  <tbody>
+
+     {% for historia in context.history %}
+      <tr>
+<td>{{historia.id}}</td>
+      <td>{{historia.action}}</td>
+      <td>{{historia.amount}}</td>
+      <td>{{historia.product}}</td>
+          <td>{{historia.count}}</td>
+      <td>{{historia.price}}</td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+  </table>
+
+    {% else %}
+<p>Brak histori!</p>
+{% endif %}
+
+{% endblock %}
+
+
+
+{% block historia_seeker %}
+ <form class = "mt-5 " action="/historia2" method="POST">
+  <h3>Formularz wyszukiwania historii</h3> <form>
+  <div class="mb-3">
+    <label  for= "okres_od" class="form-label">Historia start</label>
+    <input type="number" class="form-control" id = "okres_od"  name = "okres_od" >
+<div  class="form-text">Podaj nr id operacji, od której chcesz przejrzec zapisane operacje.</div>
+
+  </div>
+
+  <div class="mb-3">
+    <label  for= "okres_do" class="form-label">Historia koniec</label>
+    <input type="number" class="form-control" id = "okres_do" name = "okres_do">
+      <div  class="form-text">Podaj nr id operacji, do której chcesz przejrzec zapisane operacje.</div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Wyświetl</button>
+        </form>
+</form>
+
+ {% endblock %}
+
+
+
+{% block historia_wyszukana %}
+ <label  class="form-label mt-3">Wyszukana historia</label>
+{% if context.history_period %}
+
+
+      <table class="table">
+  <thead>
+    <tr>
+
+      <th scope="col">Akcja</th>
+      <th scope="col">Kwota</th>
+        <th scope="col">Towar</th>
+        <th scope="col">Ilość</th>
+        <th scope="col">Cena</th>
+    </tr>
+  </thead>
+  <tbody>
+
+     {% for historia in context.history_period %}
+      <tr>
+
+      <td>{{historia.action}}</td>
+      <td>{{historia.amount}}</td>
+      <td>{{historia.product}}</td>
+          <td>{{historia.count}}</td>
+      <td>{{historia.price}}</td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+  </table>
+
+    {% else %}
+<p>Brak wybranej histori operacji!</p>
+{% endif %}
+
+ {% endblock %}
